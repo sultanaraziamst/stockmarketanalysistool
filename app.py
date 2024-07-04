@@ -30,6 +30,27 @@ app.layout  = html.Div([
                 {'label': 'Amazon', 'value': 'AMZN'},
                 {'label': 'Google', 'value': 'GOOGL'},
                 {'label': 'Tesla', 'value': 'TSLA'}
-    ])
-
+     ],
+            value='AAPL'
+        )
+    ]),
+    dcc.DatePickerRange(
+        id='date-picker-range',
+        start_date='2022-01-01',
+        end_date='2024-06-01'
+    ),
+    
+    dcc.Graph(id='candlestick-chart'),
+    dcc.Graph(id='moving-average-chart'),
+    dcc.Graph(id='volume-chart')
 ])
+
+@app.callback(
+    [Output('candlestick-chart', 'figure'),
+     Output('moving-average-chart', 'figure'),
+     Output('volume-chart', 'figure')],
+    [Input('stock-dropdown', 'value'),
+     Input('date-picker-range', 'start_date'),
+     Input('date-picker-range', 'end_date')]
+)
+
